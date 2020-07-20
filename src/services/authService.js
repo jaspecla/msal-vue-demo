@@ -1,16 +1,16 @@
-import * as Msal from 'msal';
+import * as Msal from '@azure/msal-browser';
 
 
 export default class AuthService {
     constructor() {
         const config = {
             auth: {
-                clientId: '57e0645a-85c8-408b-86ef-e0689550de6d',
-                authority: 'https://login.microsoftonline.com/jasonspecland.com'
+                clientId: process.env.VUE_APP_AZURE_AD_CLIENT_ID,
+                authority: `https://login.microsoftonline.com/${process.env.VUE_APP_AZURE_AD_TENANT_NAME}`
             }
         };
 
-        this.myMsal = new Msal.UserAgentApplication(config);
+        this.myMsal = new Msal.PublicClientApplication(config);
         this.request = {
             scopes: ["user.read", "group.read.all"]
         };
@@ -23,6 +23,9 @@ export default class AuthService {
     async login() {
         try {
             this.idToken = await this.myMsal.loginPopup(this.request);
+            console.log(this.idToken);
+            const loggedInAccountName = this.idToken.idTokenClaims.preferred_username;
+            this.request.account = this.myMsal.getAccountByUsername(loggedInAccountName);
         } catch(error) {
             console.log(error);
         }

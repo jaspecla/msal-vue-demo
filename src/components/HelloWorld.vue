@@ -31,8 +31,13 @@ export default {
       this.groups = await this.authService.getGroups();
     },
     login: async function() {
-      await this.authService.login();
-      this.loggedIn = true;
+      try {
+        await this.authService.login();
+        this.loggedIn = true;
+      }
+      catch (error) {
+        console.log(error);
+      }
     }
   }
 }
