@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div><h1>MSAL 1</h1></div>
+    <div><h3>OAuth 2.0 Implicit Grant Flow</h3></div>
     <button @click.prevent="login">Login</button>
     <button @click.prevent="getGroups">Get Groups</button>
     <br />
@@ -13,7 +15,7 @@
 </template>
 
 <script>
-import AuthService from '../services/authService';
+import AuthService from '../services/msal1-authService';
 
 export default {
   name: 'HelloWorld',
