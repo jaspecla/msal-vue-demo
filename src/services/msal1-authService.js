@@ -23,7 +23,6 @@ export default class AuthService {
     async login() {
         try {
             this.idToken = await this.myMsal.loginPopup(this.request);
-            // console.log(this.idToken);
             // const loggedInAccountName = this.idToken.idTokenClaims.preferred_username;
             // this.request.account = this.myMsal.getAccountByUsername(loggedInAccountName);
         } catch(error) {
